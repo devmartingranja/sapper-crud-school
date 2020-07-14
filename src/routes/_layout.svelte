@@ -1,28 +1,19 @@
 <script>
-  import Nav from "../components/Nav.svelte";
-
+  import Main from "../components/templates/main.svelte";
+  import MainLogin from "../components/templates/login.svelte";
   export let segment;
 </script>
 
 {#if segment !== 'login'}
 
-  <style>
-    main {
-      position: relative;
-      max-width: 56em;
-      background-color: white;
-      padding: 2em;
-      margin: 0 auto;
-      box-sizing: border-box;
-    }
-  </style>
+  <Main {segment}>
+    <slot/>
+  </Main>
 
-  <Nav {segment} />
-
-  <main>
-    <slot />
-  </main>
-  
 {:else}
-  <slot />
+
+  <MainLogin>
+    <slot />
+  </MainLogin>
+  
 {/if}

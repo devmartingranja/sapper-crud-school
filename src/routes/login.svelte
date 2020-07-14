@@ -3,26 +3,25 @@
   let inputEmail;
   let email = "";
   let pass = "";
-  let isIngreso = '';
+  let isIngreso = "";
 
   function onEnviarDatos(e) {
     e.preventDefault();
 
-    if (email === "test@ing-dev.com" && pass === "123")    {   
-      alert('ingreso con exito');    
-      window.location.href = '/'
-    }
-    else {    
-      inputEmail.focus()
-      email = ''
-      pass = ''
+    if (email === "test@ing-dev.com" && pass === "123")       {
+      window.location.href = "/";
+    } else {
+      inputEmail.focus();
+      email = "";
+      pass = "";
       alert("Credenciales no validas");
     }
-
   }
+
 </script>
 
 <style>
+
   :root {
     --input-padding-x: 0.75rem;
     --input-padding-y: 0.75rem;
@@ -81,7 +80,7 @@
 
   .form-label-group input:not(:placeholder-shown) {
     padding-top: calc(
-      var(--input-padding-y) + var(--input-padding-y) * (2 / 3)
+      var(--input-padding-y) + var(--input-padding-y) * (2 / 3) 
     );
     padding-bottom: calc(var(--input-padding-y) / 3);
   }
@@ -92,12 +91,15 @@
     font-size: 12px;
     color: #777;
   }
+  
 </style>
 
 <svelte:head>
-  <title>LOGIN</title>
+  <title>Login</title>
 </svelte:head>
+
 <form class="form-signin mt-5" on:submit={onEnviarDatos}>
+
   <div class="text-center mb-4">
     <img class="mb-4" src="img/student.svg" alt="" width="40%" />
     <h1 class="h3 mb-3 font-weight-normal">
@@ -131,8 +133,12 @@
     <label for="inputPassword">Contraseñas</label>
   </div>
 
-  <button class="btn btn-lg btn-primary btn-block" type="submit" disabled={(email === '' || pass === '')?true:''}>
+  <button
+    class="btn btn-lg btn-primary btn-block"
+    type="submit"
+    disabled={email === '' || pass === '' ? true : ''}>
     Ingresar
   </button>
   <p class="mt-5 mb-3 text-muted text-center">&copy; 2020-2021</p>
+
 </form>
