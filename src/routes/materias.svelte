@@ -1,8 +1,25 @@
-<script>  
-  import RowMatter from "../components/presenters/row-matter.svelte";
-  import {storeMaterias} from '../store/materias.store.svelte'
+<script context="module">
 
-  console.log(storeMaterias)
+  export async function preload(page ,session){    
+    
+    if (!session.token) return this.redirect(302, 'login');
+    
+  }
+
+</script>
+
+<script>  
+
+  import RowMatter from "../components/presenters/row-matter.svelte";
+
+   import { stores } from '@sapper/app';
+   const { session } = stores();
+
+   const { token } = $session;
+   console.log(token)
+  
+
+  //export let post;
 
 </script>
 
@@ -35,7 +52,7 @@
     <img class="mr-3" src="img/books.svg" alt="" width="48" height="48" />
     <div class="lh-100">
       <h6 class="mb-0 text-white lh-100">MATERIAS</h6>
-      <small>Administración de materias</small>
+      <small>Administración de materias </small>
     </div>
   </div>
 

@@ -1,15 +1,27 @@
-<script>
+<script context="module">
 
+  export async function preload(page, session) {
+    const { token } = session;
+    return { token };
+  }
+
+</script>
+
+<script>  
+
+  import { goto, session } from '@sapper/app';  
+  
   let inputEmail;
   let email = "";
   let pass = "";
   let isIngreso = "";
-
+  
   function onEnviarDatos(e) {
     e.preventDefault();
 
-    if (email === "test@ing-dev.com" && pass === "123")       {
-      window.location.href = "/";
+    if (email === "test@ing-dev.com" && pass === "123") {        
+      token = '789'   
+      goto("/");
     } else {
       inputEmail.focus();
       email = "";
@@ -17,11 +29,9 @@
       alert("Credenciales no validas");
     }
   }
-
 </script>
 
 <style>
-
   :root {
     --input-padding-x: 0.75rem;
     --input-padding-y: 0.75rem;
@@ -80,7 +90,7 @@
 
   .form-label-group input:not(:placeholder-shown) {
     padding-top: calc(
-      var(--input-padding-y) + var(--input-padding-y) * (2 / 3) 
+      var(--input-padding-y) + var(--input-padding-y) * (2 / 3)
     );
     padding-bottom: calc(var(--input-padding-y) / 3);
   }
@@ -91,7 +101,6 @@
     font-size: 12px;
     color: #777;
   }
-  
 </style>
 
 <svelte:head>
