@@ -1,33 +1,34 @@
-<script context="module">
-
-  export async function preload(page, session) {
-    const { token } = session;
-    return { token };
-  }
-
-</script>
-
 <script>  
 
-  import { goto, session } from '@sapper/app';  
+  import { goto, stores } from '@sapper/app';  
+  const { session } = stores()
   
   let inputEmail;
   let email = "";
   let pass = "";
   let isIngreso = "";
+  let error = "";
   
-  function onEnviarDatos(e) {
-    e.preventDefault();
+  const onEnviarDatos = async (e) => {          
+      
+    const response = await fetch("/login", {
+        method: "POST",
+        headers : {
+          'Content-Type': "application/json",
+          'Accept': "application/json",
+        },      
+        body: JSON.stringify({email, pass})
+    })
 
-    if (email === "test@ing-dev.com" && pass === "123") {        
-      token = '789'   
-      goto("/");
+    const parsed = await response.json()    
+
+    if(parsed.error){
+      error = parsed.error
     } else {
-      inputEmail.focus();
-      email = "";
-      pass = "";
-      alert("Credenciales no validas");
-    }
+      $session.token = parsed.token      
+      goto("/");
+    }    
+  
   }
 </script>
 
@@ -107,7 +108,7 @@
   <title>Login</title>
 </svelte:head>
 
-<form class="form-signin mt-5" on:submit={onEnviarDatos}>
+<form class="form-signin mt-5" on:submit|preventDefault={onEnviarDatos} method="post">
 
   <div class="text-center mb-4">
     <img class="mb-4" src="img/student.svg" alt="" width="40%" />
@@ -148,6 +149,9 @@
     disabled={email === '' || pass === '' ? true : ''}>
     Ingresar
   </button>
+  {#if error}
+    <div class="alert alert-danger mt-2 ">{error}</div>
+  {/if}
   <p class="mt-5 mb-3 text-muted text-center">&copy; 2020-2021</p>
 
 </form>

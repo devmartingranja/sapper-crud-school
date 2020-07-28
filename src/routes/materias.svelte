@@ -1,9 +1,25 @@
 <script context="module">
 
-  export async function preload(page ,session){    
+  export async function preload(page ,session){   
+
+    const {token} = session;
+    if (!token) return this.redirect(302, 'login');
     
-    if (!session.token) return this.redirect(302, 'login');
+    const resp = await this.fetch(`http://127.0.0.1:3001/materias`,{
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: token,
+      },
+    })
+
+    const parsed = await resp.json()   
     
+    if(parsed.error){
+      return this.error(resp.status, parsed.error)
+    }
+    return { msg : parsed.message, data : parsed.materias }
   }
 
 </script>
@@ -11,15 +27,8 @@
 <script>  
 
   import RowMatter from "../components/presenters/row-matter.svelte";
-
-   import { stores } from '@sapper/app';
-   const { session } = stores();
-
-   const { token } = $session;
-   console.log(token)
-  
-
-  //export let post;
+  export let msg = ''  
+  export let data = []   
 
 </script>
 
@@ -61,11 +70,10 @@
       Actualizaciones recientes
     </h6>
 
-    <RowMatter />
-    <RowMatter />
-    <RowMatter />
-    <RowMatter />
-    <RowMatter />
+    {#each data as materia }
+    <RowMatter data={materia} />
+    {/each}
+   
 
     <small class="d-block text-right mt-3">
       <a href="/">Ir a Inicio</a>
