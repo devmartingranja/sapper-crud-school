@@ -1,46 +1,88 @@
-<style>
-	h1, figure, p {
-		text-align: center;
-		margin: 0 auto;
-	}
+<script context="module">
+  export async function preload(page, session) {
+    const { token } = session;
+    if (!token) return this.redirect(302, "/login");
+  }
+</script>
 
-	h1 {
-		font-size: 2.8em;
-		text-transform: uppercase;
-		font-weight: 700;
-		margin: 0 0 0.5em 0;
-	}
+<script>
 
-	figure {
-		margin: 0 0 1em 0;
-	}
-
-	img {
-		width: 100%;
-		max-width: 400px;
-		margin: 0 0 1em 0;
-	}
-
-	p {
-		margin: 1em auto;
-	}
-
-	@media (min-width: 480px) {
-		h1 {
-			font-size: 4em;
-		}
-	}
-</style>
+</script>
 
 <svelte:head>
-	<title>Sapper project template dfsdfds</title>
+  <title>Inicio</title>
 </svelte:head>
 
-<h1>Great success! </h1>
+<div class="ing-container">
 
-<figure>
-	<img alt='Success Kid' src='successkid.jpg'>
-	<figcaption>Have fun with Sapper!</figcaption>
-</figure>
+  <main role="main">
 
-<p><strong>Try editing this file (src/routes/index.svelte) to test live reloading.</strong></p>
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h2 class="display-4">Bienvenido!</h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sed
+          euismod dolor. Aenean bibendum massa vitae diam semper maximus.         
+        </p>
+        <p>
+          <a class="btn btn-primary btn-lg" href="/" role="button">
+            Carga Academica
+            <i class="far fa-hand-point-right"></i>
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-4">
+          <h2>Estudiantes</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sed
+            euismod dolor. Aenean bibendum massa vitae diam semper maximus.
+          </p>
+          <p>
+            <a class="btn btn-secondary" href="/estudiante" role="button">
+              Ver mas &raquo;
+            </a>
+          </p>
+        </div>
+        <div class="col-md-4">
+          <h2>Profesores</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sed
+            euismod dolor. Aenean bibendum massa vitae diam semper maximus.
+          </p>
+          <p>
+            <a class="btn btn-secondary" href="/profesores" role="button">
+              Ver mas &raquo;
+            </a>
+          </p>
+        </div>
+        <div class="col-md-4">
+          <h2>Materias</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sed
+            euismod dolor. Aenean bibendum massa vitae diam semper maximus.
+          <p>
+            <a class="btn btn-secondary" href="/materias" role="button">
+              Ver mas &raquo;
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <hr />
+
+    </div>
+    <!-- /container -->
+
+  </main>
+
+  <footer class="container">
+    <p>&copy; Company 2020-2021</p>
+  </footer>
+
+</div>

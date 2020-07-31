@@ -1,35 +1,42 @@
-<script>  
+<script context="module">
+  export async function preload(page, session) {
+    await this.fetch("/request/logout", { method: "POST" });
+  }
+</script>
 
-  import { goto, stores } from '@sapper/app';  
-  const { session } = stores()
-  
+<script>
+  import { goto, stores } from "@sapper/app";
+  const { session } = stores();
+  $session.token = undefined;
+
   let inputEmail;
   let email = "";
   let pass = "";
   let isIngreso = "";
   let error = "";
-  
-  const onEnviarDatos = async (e) => {          
-      
-    const response = await fetch("/login", {
-        method: "POST",
-        headers : {
-          'Content-Type': "application/json",
-          'Accept': "application/json",
-        },      
-        body: JSON.stringify({email, pass})
-    })
 
-    const parsed = await response.json()    
+  const onEnviarDatos = async (e) => {
+    const response = await fetch("/request/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({ email, pass }),
+    });
 
-    if(parsed.error){
-      error = parsed.error
+    const parsed = await response.json();
+
+    if (parsed.error) {
+      error = parsed.error;
+      setInterval(() => {
+        error = "";
+      }, 4000);
     } else {
-      $session.token = parsed.token      
+      $session.token = parsed.token;
       goto("/");
-    }    
-  
-  }
+    }
+  };
 </script>
 
 <style>
@@ -40,7 +47,7 @@
 
   .form-signin {
     width: 100%;
-    max-width: 420px;
+    max-width: 320px;
     padding: 15px;
     margin: 0 auto;
   }
@@ -108,16 +115,19 @@
   <title>Login</title>
 </svelte:head>
 
-<form class="form-signin mt-5" on:submit|preventDefault={onEnviarDatos} method="post">
+<form
+  class="form-signin mt-5"
+  on:submit|preventDefault={onEnviarDatos}
+  method="post">
 
   <div class="text-center mb-4">
-    <img class="mb-4" src="img/student.svg" alt="" width="40%" />
+    <img class="mb-4" src="img/student.svg" alt="" width="30%" />
     <h1 class="h3 mb-3 font-weight-normal">
       A
       <b class="text-danger">K</b>
       ADEMIA
     </h1>
-    <p>Plataforma para la administración de la informacion escolar</p>
+    <p class="text-secondary"><b>Ingreso</b></p>
   </div>
 
   <div class="form-label-group">
@@ -140,17 +150,18 @@
       placeholder="Contraseña"
       bind:value={pass}
       required />
-    <label for="inputPassword">Contraseñas</label>
+    <label for="inputPassword">Contraseña</label>
   </div>
 
   <button
-    class="btn btn-lg btn-primary btn-block"
+    class="btn btn-lg btn-primary btn-block btn-sm"
     type="submit"
     disabled={email === '' || pass === '' ? true : ''}>
     Ingresar
   </button>
+  
   {#if error}
-    <div class="alert alert-danger mt-2 ">{error}</div>
+    <div class="alert alert-danger mt-2 p-1 ">{error}</div>
   {/if}
   <p class="mt-5 mb-3 text-muted text-center">&copy; 2020-2021</p>
 

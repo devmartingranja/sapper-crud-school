@@ -1,3 +1,10 @@
+<script context="module">
+  export async function preload(page, session) {
+    const { token } = session;
+    if (!token) return this.redirect(302, "/login");
+  }
+</script>
+
 <style>
   .text-white-50 {
     color: rgba(255, 255, 255, 0.5);
@@ -23,14 +30,18 @@
   }
 </style>
 
-<main role="main" class="container">
+<svelte:head>
+  <title>Estudiantes</title>
+</svelte:head>
+
+<main role="main" class="container ing-container">
   <div
     class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded
     box-shadow">
     <img
       class="mr-3"
       src="img/students.svg"
-      alt=""
+      alt="estudiante"
       width="48"
       height="48" />
     <div class="lh-100">
@@ -40,7 +51,9 @@
   </div>
 
   <div class="my-3 p-3 bg-white rounded box-shadow">
-    <h6 class="border-bottom border-gray pb-3 mb-0">Actualizaciones recientes</h6>
+    <h6 class="border-bottom border-gray pb-3 mb-0">
+      Actualizaciones recientes
+    </h6>
 
     <div class="media text-muted pt-3">
       <img

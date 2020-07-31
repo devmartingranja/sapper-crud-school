@@ -14,6 +14,6 @@
 
   <MainLogin>
     <slot />
-  </MainLogin>
+  </MainLogin> 
   
 {/if}

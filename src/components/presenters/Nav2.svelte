@@ -1,5 +1,15 @@
 <script>
-  export let segment;  
+
+ import { goto, stores } from '@sapper/app';  
+ const { session } = stores()
+ export let segment;  
+
+const onLogout = async () => {
+   await fetch("/request/logout",{ method : "POST" })
+   $session.token = ""
+   goto('/login')
+ }
+
 </script>
 
 <style>
@@ -31,7 +41,7 @@
      
     </ul>
     <form class="form-inline my-2 my-lg-0">
-      <a class="btn btn-outline-success my-2 my-sm-0" href="login">Salir</a>
+      <div class="btn btn-outline-success my-2 my-sm-0" on:click={onLogout}>Salir</div>
     </form>
   </div>
 </nav>

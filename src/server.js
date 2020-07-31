@@ -31,7 +31,7 @@ polka() // You can also use Express
 		sirv('static', { dev }),
 		sapper.middleware({
 			session: (req, res) => ({
-				token: req.session.token
+				token: req.session.token				
 			})
 		})
 	)
