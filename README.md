@@ -16,7 +16,7 @@ git clone git@github.com:devmartingranja/sapper-crud-school.git
 ### Instalación 🔧
 
 ```
-npm instal ó npm i
+npm install ó npm i
 npm run dev
 ```
 
