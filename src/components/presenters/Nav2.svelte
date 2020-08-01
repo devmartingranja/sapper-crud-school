@@ -11,9 +11,8 @@
 </script>
 
 <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
-  <a class="navbar-brand" href="/">
-    <i class="fas fa-school" />
-    <span class="text-danger"><b>K</b></span>ADEMIA</a>
+  <a class="navbar-brand" href="/">    
+    SCH<span class="text-danger"><b>OO</b></span>L</a>
   <button
     class="navbar-toggler p-0 border-0"
     type="button"

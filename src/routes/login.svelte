@@ -114,9 +114,7 @@
   <div class="text-center mb-4">
     <img class="mb-4" src="img/student.svg" alt="" width="30%" />
     <h1 class="h3 mb-3 font-weight-normal">
-      A
-      <b class="text-danger">K</b>
-      ADEMIA
+      SCH<b class="text-danger">OO</b>L
     </h1>
     <p class="text-secondary">
       <b>Ingreso</b>
