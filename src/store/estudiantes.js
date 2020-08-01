@@ -1,17 +1,17 @@
 import { writable, derived } from 'svelte/store';
-import { Create, Update, Remove } from '@api/materias'
+import { Create, Update, Remove } from '@api/estudiantes'
 
 function CreateStore() {
 
     const { subscribe, set, update } = writable({
-        array: []        
+        array: []      
     })
 
     return {
         subscribe,
-        init: (data) => set(data),     
+        init: (data) => set(data),
         create: async (data) => {
-            const res = await Create(data)            
+            const res = await Create(data)
             data.id = res.data.id
             update(m => {
                 m.array.push(data)
@@ -38,4 +38,4 @@ function CreateStore() {
     }
 }
 
-export const materiaStore = CreateStore();
+export const estudianteStore = CreateStore();

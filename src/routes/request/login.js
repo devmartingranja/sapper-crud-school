@@ -9,7 +9,7 @@ export async function post(req, res) {
   try {
     const { email, pass } = req.body;
 
-    //TODO: modificar 
+    //TODO: modificar esto no va, solo a manera de ejemplo
 
     // const result = await fetch(`https://www.myapi.com/login`, {
     //   method: "POST",

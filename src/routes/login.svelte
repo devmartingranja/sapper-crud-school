@@ -5,6 +5,7 @@
 </script>
 
 <script>
+  import { Login } from "@api/secutiry";
   import { goto, stores } from "@sapper/app";
   const { session } = stores();
   $session.token = undefined;
@@ -16,24 +17,14 @@
   let error = "";
 
   const onEnviarDatos = async (e) => {
-    const response = await fetch("/request/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({ email, pass }),
-    });
-
-    const parsed = await response.json();
-
-    if (parsed.error) {
-      error = parsed.error;
+    const response = await Login({ email, pass });
+    if (response.error) {
+      error = response.error;
       setInterval(() => {
         error = "";
       }, 4000);
     } else {
-      $session.token = parsed.token;
+      $session.token = response.token;
       goto("/");
     }
   };
@@ -116,7 +107,7 @@
 </svelte:head>
 
 <form
-  class="form-signin mt-5"
+  class="form-signin mt-5 bg-white border-top border-primary rounded"
   on:submit|preventDefault={onEnviarDatos}
   method="post">
 
@@ -127,7 +118,9 @@
       <b class="text-danger">K</b>
       ADEMIA
     </h1>
-    <p class="text-secondary"><b>Ingreso</b></p>
+    <p class="text-secondary">
+      <b>Ingreso</b>
+    </p>
   </div>
 
   <div class="form-label-group">
@@ -159,7 +152,7 @@
     disabled={email === '' || pass === '' ? true : ''}>
     Ingresar
   </button>
-  
+
   {#if error}
     <div class="alert alert-danger mt-2 p-1 ">{error}</div>
   {/if}

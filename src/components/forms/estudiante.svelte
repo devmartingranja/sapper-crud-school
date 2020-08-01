@@ -1,5 +1,5 @@
 <script>
-  import { materiaStore } from "../../store/materias";
+  import { estudianteStore } from "../../store/estudiantes";
   import FormTemplate from "../../components/templates/form.svelte";
   import { goto } from "@sapper/app";
   import { createEventDispatcher } from "svelte";
@@ -9,18 +9,18 @@
   export let form = {
     id: 0,
     name: "",
-    creditos: 1,
-    descripcion: "",
+    edad: 18,
+    img: "",
   };
 
   const onSave = async () => {
     let res = false;
 
-    if (form.id) res = await materiaStore.update(form);
-    else res = await materiaStore.create(form);
+    if (form.id) res = await estudianteStore.update(form);
+    else res = await estudianteStore.create(form);
 
     if (isModal) dispatch("onClose");
-    else if (res) goto("/materias");
+    else if (res) goto("/estudiantes");
   };
 </script>
 
@@ -46,9 +46,9 @@
         </div>
 
         <div class="form-group col-md-6">
-          <label for="creditos">* CREDITOS</label>
+          <label for="creditos">* EDAD</label>
           <input
-            bind:value={form.creditos}
+            bind:value={form.edad}
             type="creditos"
             class="form-control"
             id="creditos"
@@ -56,9 +56,9 @@
         </div>
 
         <div class="form-group col-md-12">
-          <label for="descripcion">* DESCRIPCIÓN</label>
+          <label for="descripcion">* URL IMAGEN</label>
           <input
-            bind:value={form.descripcion}
+            bind:value={form.img}
             type="descripcion"
             class="form-control"
             id="descripcion"
@@ -78,7 +78,7 @@
           Cancelar
         </div>
       {:else}
-        <a href="/materias" class="btn btn-secondary">
+        <a href="/estudiantes" class="btn btn-secondary">
           <i class="fas fa-ban" />
           Cancelar
         </a>

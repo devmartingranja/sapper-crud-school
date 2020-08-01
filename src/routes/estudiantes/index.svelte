@@ -1,5 +1,5 @@
 <script context="module">
-  import { GetAll } from "@api/materias";
+  import { GetAll } from "@api/estudiantes";
 
   export async function preload(page, session) {
     const { token } = session;
@@ -11,14 +11,14 @@
 </script>
 
 <script>
-  import { materiaStore } from "../../store/materias";
-  import FormMateria from "../../components/forms/materia.svelte";
-  import RowMatter from "../../components/presenters/row-matter.svelte";
+  import { estudianteStore } from "../../store/estudiantes";
+  import FormEstudiante from "../../components/forms/estudiante.svelte";
+  import CarStudent from "../../components/presenters/card-student.svelte";
   import ViewModal from "../../components/templates/modal.svelte";
   export let resData;
   let showModal = false;
   let form = undefined;
-  materiaStore.init({ array: resData.materias });
+  estudianteStore.init({ array: resData.users });
 </script>
 
 <style>
@@ -44,7 +44,7 @@
 </style>
 
 <svelte:head>
-  <title>Materias</title>
+  <title>Estudiantes</title>
 </svelte:head>
 
 <main role="main" class="container ing-container">
@@ -54,13 +54,13 @@
     <div class="d-flex align-items-center">
       <img
         class="mr-3"
-        src="img/books.svg"
-        alt="materia"
+        src="img/students.svg"
+        alt="estudiante"
         width="48"
         height="48" />
       <div class="lh-100">
-        <h6 class="mb-0 text-white lh-100">MATERIAS</h6>
-        <small>Administración de materias</small>
+        <h6 class="mb-0 text-white lh-100">ESTUDIANTES</h6>
+        <small>Administración de los estudiantes</small>
       </div>
     </div>
     <div>
@@ -73,7 +73,7 @@
         <i class="fas fa-plus-circle" />
         Nuevo (Modal)
       </div>
-      <a href="/materias/form" class="btn btn-success btn-sm">
+      <a href="/estudiantes/form" class="btn btn-success btn-sm">
         <i class="fas fa-plus-circle" />
         Nuevo
       </a>
@@ -82,31 +82,36 @@
 
   <div class="my-3 p-3 bg-white rounded box-shadow">
     <h6 class="border-bottom border-gray pb-3 mb-0">
-      Actualizaciones recientes ({$materiaStore.array.length})
+      Actualizaciones recientes ({$estudianteStore.array.length})
     </h6>
 
-    {#each $materiaStore.array as materia}
-      <RowMatter
-        data={materia}
-        on:onEdit={(e) => {
-          (form = e.detail.data), (showModal = true);
-        }} />
-    {/each}
-
+    <div class="row mt-2">
+      {#each $estudianteStore.array as estudiante}
+        <div class="col-md-3">
+          <CarStudent
+            data={estudiante}
+            on:onEdit={(e) => {
+              (form = e.detail.data), (showModal = true);
+            }} />
+        </div>
+      {/each}
+    </div>
     <small class="d-block text-right mt-3">
       <a href="/">Ir a Inicio</a>
     </small>
   </div>
 </main>
-<!-- Button trigger modal -->
 
 {#if showModal}
   <ViewModal>
-    <FormMateria {form} isModal={true} on:onClose={() => (showModal = false)}>
-      <span slot="titulo">{!form ? 'REGISTRAR' : 'ACTUALIZAR'} MATERIA</span>
+    <FormEstudiante
+      {form}
+      isModal={true}
+      on:onClose={() => (showModal = false)}>
+      <span slot="titulo">{!form ? 'REGISTRAR' : 'ACTUALIZAR'} ESTUDIANTE</span>
       <span slot="detalle">
-        {!form ? 'Registrando' : 'Modificando'} materia
+        {!form ? 'Registrando' : 'Modificando'} estudiante
       </span>
-    </FormMateria>
+    </FormEstudiante>
   </ViewModal>
 {/if}

@@ -1,5 +1,7 @@
 <script>
-  import { materia } from "../../store/materias";
+  import { materiaStore } from "../../store/materias";
+  import {createEventDispatcher} from 'svelte'
+  const dispatch = createEventDispatcher();
   export let data;
 </script>
 
@@ -26,14 +28,24 @@
     <br />
     <span class="badge badge-primary p-1 mt-1">Creditos: {data.creditos}</span>
     <div class="d-flex float-right mt-2">
-     <div class="btn btn-warning btn-sm btn-text-size mr-1">
+      <div
+       on:click={ () => dispatch('onEdit', {data})}
+       class="btn btn-warning btn-sm btn-text-size mr-1">
+        <i class="far fa-edit" />
+        Actualizar (Modal)
+      </div>
+      <a
+        class="btn btn-warning btn-sm btn-text-size mr-1"
+        href="/materias/form/{data.id}">
         <i class="far fa-edit" />
         Actualizar
-      </div>
-      <div class="btn btn-danger btn-sm btn-text-size" on:click={ async () => await materia.delete(data.id)}>
+      </a>
+      <div
+        class="btn btn-danger btn-sm btn-text-size"
+        on:click={async () => await materiaStore.delete(data.id)}>
         <i class="far fa-trash-alt" />
         Eliminar
-      </div>     
+      </div>
     </div>
   </div>
 </div>

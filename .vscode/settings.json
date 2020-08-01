@@ -1,3 +1,5 @@
 {
-    "deno.enable": false    
+    "deno.enable": false,
+    "typescript.format.enable": false,    
+    "javascript.validate.enable": false,
 }

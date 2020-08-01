@@ -1,8 +1,13 @@
 html,
 body, #sapper {
   height: 100%;
+  background: #f6f6f6;
 }
 
 .ing-container {	
 	padding-top: 56px;
+}
+
+.navbar-nav .active {
+  border-bottom: 1px solid #ffffff7d
 }
